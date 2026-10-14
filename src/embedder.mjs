@@ -1,5 +1,4 @@
 // 임베딩 계약(CLAUDE.md "임베딩 계약")을 정의하는 유일한 곳
-import { pipeline } from "@huggingface/transformers";
 
 export const MODEL = "onnx-community/embeddinggemma-300m-ONNX";
 export const DTYPE = "q8";
@@ -14,7 +13,9 @@ let extractorPromise = null;
 function getExtractor() {
   if (!extractorPromise) {
     console.log("임베딩 모델 불러오는 중…(첫 실행은 약 300MB 다운로드)");
-    extractorPromise = pipeline("feature-extraction", MODEL, { dtype: DTYPE }).catch((error) => {
+    // 라이브러리는 실제로 임베딩할 때만 불러온다 (검색 로직 단독 테스트 가능)
+    extractorPromise = import("@huggingface/transformers")
+      .then(({ pipeline }) => pipeline("feature-extraction", MODEL, { dtype: DTYPE })).catch((error) => {
       extractorPromise = null; // 실패한 Promise를 들고 있지 않는다
       throw error;
     });

@@ -45,6 +45,14 @@
 - 벡터 저장소 `data/vectors.json` 형식: `{ model, dtype, dim, createdAt, count, chunks: [{ id, text, url, section, category, source_type, license, claim_type, checked_at, …, vector }] }`.
 - 저장소의 `model`·`dtype`·`dim`이 현재 embedder와 다르면 검색을 거부하고 "인덱스를 다시 만드세요(node src/build-index.mjs)"라고 안내한다.
 
+## 검색 계약 (STEP 4에서 결정)
+- 벡터는 정규화되어 있으므로 코사인 유사도 = 내적. 점수 내림차순 top-k, 기본 k=3 (`--k`로 변경).
+- `--category ST|MK|WK|CS|IP|TH`로 검색 범위를 좁힐 수 있다 (선택).
+- `DEFAULT_K`, `WEAK_THRESHOLD`(출발값 0.55)는 `src/search.mjs`에서만 정의·export하고 다른 파일은 import해서 쓴다.
+- 1위 점수가 `WEAK_THRESHOLD`보다 낮으면 "관련 자료가 약함"과 1위 점수를 표시한다. 결과는 버리지 않는다.
+- 결과마다 id, 점수, section, text 앞부분, url(+url_extra), source_type/license, 확인일을 보여 준다. `copyright-blocked` 청크는 내용 대신 "저작권 침해 요소가 있어 내용 확인 불가"를 보여 준다.
+- 저장소가 없거나 임베딩 설정이 다르면 검색하지 않고 인덱스를 다시 만들라고 안내한다.
+
 ## 결정 필요
-- 검색 결과를 몇 개 보여 주고, 점수가 몇 점 아래면 "관련 자료가 약함"으로 볼까? (STEP 4, 출발값 0.55)
+- 약한 근거 기준 점수 최종값과 그 이유 (STEP 5 측정 후, 출발값 0.55)
 - LLM에게 어떤 규칙(시스템 메시지)을 줄까? (STEP 6)
