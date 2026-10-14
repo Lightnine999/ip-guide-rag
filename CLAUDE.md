@@ -37,7 +37,14 @@
 - url은 확인 가능한 출처. 위키백과는 문서 주소, 논문은 KCI 주소, 내 문서는 `docs/ip-sop.md#제목`(공백은 하이픈).
 - 기사(article)는 publisher·url·published_at이 모두 있어야 하며, 하나라도 없으면 인덱스에서 뺀다.
 
+## 임베딩 계약 (STEP 3에서 결정)
+- 모델은 `onnx-community/embeddinggemma-300m-ONNX`. transformers.js `pipeline("feature-extraction", MODEL, { dtype: "q8" })`, 호출 옵션 `{ pooling: "mean", normalize: true }`, 차원 768.
+- 입력 형식: 문서 `"title: " + section + " | text: " + text`, 질문 `"task: search result | query: " + question`.
+- `src/embedder.mjs` 한 곳에서만 정의하고 파이프라인은 한 번만 만든다. export: `embedDocument(chunk)`, `embedQuery(question)`, `documentInput(chunk)`, `MODEL`, `DTYPE`, `DIM`.
+- 청크 검사는 `src/validate-chunks.mjs`(데이터 계약)에서만 한다. 기사 요건이 빠진 청크는 오류가 아니라 '건너뜀'으로 출력한다.
+- 벡터 저장소 `data/vectors.json` 형식: `{ model, dtype, dim, createdAt, count, chunks: [{ id, text, url, section, category, source_type, license, claim_type, checked_at, …, vector }] }`.
+- 저장소의 `model`·`dtype`·`dim`이 현재 embedder와 다르면 검색을 거부하고 "인덱스를 다시 만드세요(node src/build-index.mjs)"라고 안내한다.
+
 ## 결정 필요
-- 임베딩 모델 설정은 무엇으로 할까? (STEP 3)
 - 검색 결과를 몇 개 보여 주고, 점수가 몇 점 아래면 "관련 자료가 약함"으로 볼까? (STEP 4, 출발값 0.55)
 - LLM에게 어떤 규칙(시스템 메시지)을 줄까? (STEP 6)

@@ -1,4 +1,4 @@
-# chunks.json 검토표 (STEP 2, v2 · 2026-10-15)
+# chunks.json 검토표 (STEP 2, v3 · 2026-10-15)
 
 원문 대조 체크: url을 열어 text 내용이 원문에 있는지 확인하고 ✅ 표시. KCI 청크는 초록 기준, `url_extra`가 있는 작품은 영문 위키백과로 보충한 청크입니다.
 
@@ -7,12 +7,17 @@
 - 목록을 쪼개 비슷해 보이던 청크를 하나로 합침: ST-102~104 → ST-102 (12원칙 전체), TH-102~104 → TH-102 (캠벨 17단계), TH-113~114 → TH-113 (보글러 12단계), TH-123~125 → TH-123 (비트 시트 15비트). 폐기 id: ST-103, ST-104, TH-103, TH-104, TH-114, TH-124, TH-125
 - 사실이 겹치던 문장 정리: ST-111(픽사 창업 내용 삭제 → MK-014에만), CS-005(뉴욕 스토어 → CS-008에만), MK-013(토이 스토리 최초 CG → WK-201에만)
 - 새 분류 WK(스튜디오 작품) 추가: 스튜디오 지브리 23편(WK-101~123), 픽사 31편(WK-201~231)
+- v3 (STEP 2 검수): PRD 코퍼스 표에 있었는데 빠진 출처 13개 청크 추가 — ST-105~106 스토리보드, ST-107 모델 시트, TH-007 서사학, TH-008 클리셰, TH-009 시학(위키), TH-010 3막 구조, TH-011 기승전결, TH-012 체호프의 총, TH-013 36가지 극적 상황, TH-014~016 『시학』 원문(구텐베르크, 퍼블릭 도메인)
+- v3 검수: 필수 필드·허용 값·라이선스 조합·id 접두어·120자 규칙을 119개 전체에 자동 검사 → 위반 0건. WK 제외 청크쌍 유사도 최대 0.09
 - 중복 점검: 전체 청크 쌍의 글자 3-gram 유사도 최대 0.20 (작품 청크끼리의 '픽사 제작·디즈니 배급' 같은 공통 문구). WK 외 청크끼리는 모두 0.12 미만.
 
 | ✅ | id | 분류 | 출처 종류 | 글자 수 | 섹션 | url |
 | --- | --- | --- | --- | --- | --- | --- |
 | [ ] | ST-101 | ST | wikipedia | 231 | 위키백과 「Disney Animation: The Illusion of Life」 – 개요 | https://en.wikipedia.org/wiki/Disney_Animation:_The_Illusion_of_Life |
 | [ ] | ST-102 | ST | wikipedia | 431 | 위키백과 「Twelve basic principles of animation」 – 애니메이션 12원칙 (전체) | https://en.wikipedia.org/wiki/Twelve_basic_principles_of_animation |
+| [ ] | ST-105 | ST | wikipedia | 212 | 위키백과 「스토리보드」 – 정의와 쓰임 | https://ko.wikipedia.org/wiki/%EC%8A%A4%ED%86%A0%EB%A6%AC%EB%B3%B4%EB%93%9C |
+| [ ] | ST-106 | ST | wikipedia | 205 | 위키백과 「스토리보드」 – 디즈니에서의 정착과 샷 용어 | https://ko.wikipedia.org/wiki/%EC%8A%A4%ED%86%A0%EB%A6%AC%EB%B3%B4%EB%93%9C |
+| [ ] | ST-107 | ST | wikipedia | 216 | 위키백과 「Model sheet」 – 모델 시트의 목적과 구성 | https://en.wikipedia.org/wiki/Model_sheet |
 | [ ] | ST-111 | ST | wikipedia | 237 | 위키백과 「Creativity, Inc.」 – 개요 | https://en.wikipedia.org/wiki/Creativity,_Inc. |
 | [ ] | ST-112 | ST | wikipedia | 208 | 위키백과 「Pixar」 – 픽사 브레인트러스트 | https://en.wikipedia.org/wiki/Pixar |
 | [ ] | MK-001 | MK | wikipedia | 174 | 위키백과 「원 소스 멀티 유즈」 – 정의와 유래 | https://ko.wikipedia.org/wiki/%EC%9B%90_%EC%86%8C%EC%8A%A4_%EB%A9%80%ED%8B%B0_%EC%9C%A0%EC%A6%88 |
@@ -107,6 +112,16 @@
 | [ ] | TH-004 | TH | wikipedia | 181 | 위키백과 「인물호」 – 인물호(캐릭터 아크) | https://ko.wikipedia.org/wiki/%EC%9D%B8%EB%AC%BC%ED%98%B8 |
 | [ ] | TH-005 | TH | wikipedia | 178 | 위키백과 「맥거핀」 – 맥거핀 | https://ko.wikipedia.org/wiki/%EB%A7%A5%EA%B1%B0%ED%95%80 |
 | [ ] | TH-006 | TH | wikipedia | 166 | 위키백과 「민담 형태론」 – 프로프의 민담 형태론 | https://ko.wikipedia.org/wiki/%EB%AF%BC%EB%8B%B4_%ED%98%95%ED%83%9C%EB%A1%A0 |
+| [ ] | TH-007 | TH | wikipedia | 238 | 위키백과 「서사학」 – 서사학의 두 흐름 | https://ko.wikipedia.org/wiki/%EC%84%9C%EC%82%AC%ED%95%99 |
+| [ ] | TH-008 | TH | wikipedia | 208 | 위키백과 「클리셰」 – 클리셰 | https://ko.wikipedia.org/wiki/%ED%81%B4%EB%A6%AC%EC%85%B0 |
+| [ ] | TH-009 | TH | wikipedia | 237 | 위키백과 「시학 (아리스토텔레스)」 – 핵심 용어와 미메시스·카타르시스 | https://ko.wikipedia.org/wiki/%EC%8B%9C%ED%95%99_%28%EC%95%84%EB%A6%AC%EC%8A%A4%ED%86%A0%ED%85%94%EB%A0%88%EC%8A%A4%29 |
+| [ ] | TH-010 | TH | wikipedia | 207 | 위키백과 「Three-act structure」 – 3막 구조 | https://en.wikipedia.org/wiki/Three-act_structure |
+| [ ] | TH-011 | TH | wikipedia | 229 | 위키백과 「Kishōtenketsu」 – 기승전결 | https://en.wikipedia.org/wiki/Kish%C5%8Dtenketsu |
+| [ ] | TH-012 | TH | wikipedia | 232 | 위키백과 「Chekhov's gun」 – 체호프의 총 | https://en.wikipedia.org/wiki/Chekhov's_gun |
+| [ ] | TH-013 | TH | wikipedia | 237 | 위키백과 「The Thirty-Six Dramatic Situations」 – 36가지 극적 상황 | https://en.wikipedia.org/wiki/The_Thirty-Six_Dramatic_Situations |
+| [ ] | TH-014 | TH | public-domain | 213 | 『The Poetics of Aristotle』(S. H. Butcher 영역) – 비극의 정의 | https://www.gutenberg.org/ebooks/1974 |
+| [ ] | TH-015 | TH | public-domain | 230 | 『The Poetics of Aristotle』(S. H. Butcher 영역) – 비극의 6요소와 플롯의 우선 | https://www.gutenberg.org/ebooks/1974 |
+| [ ] | TH-016 | TH | public-domain | 250 | 『The Poetics of Aristotle』(S. H. Butcher 영역) – 전체성(처음·중간·끝)과 급전·인지 | https://www.gutenberg.org/ebooks/1974 |
 | [ ] | TH-101 | TH | wikipedia | 175 | 위키백과 「Hero's journey」 – 개요 | https://en.wikipedia.org/wiki/Hero%27s_journey |
 | [ ] | TH-102 | TH | wikipedia | 275 | 위키백과 「Hero's journey」 – 17단계 (전체) | https://en.wikipedia.org/wiki/Hero%27s_journey |
 | [ ] | TH-111 | TH | wikipedia | 207 | 위키백과 「The Writer's Journey: Mythic Structure for Writers」 – 개요 | https://en.wikipedia.org/wiki/The_Writer%27s_Journey:_Mythic_Structure_for_Writers |
