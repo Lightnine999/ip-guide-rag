@@ -1,11 +1,12 @@
 // [1단계] 질문 → 비슷한 청크 top-k
-// 실행: node src/search.mjs "질문" [--k 3] [--category ST|MK|WK|CS|IP|TH]
+// 실행: node src/search.mjs "질문1" ["질문2" …] [--k 3] [--category ST|MK|WK|CS|IP|TH]
+// 질문마다 따옴표로 감싼다. 여러 질문을 한 번에 넣으면 모델을 한 번만 불러온다
 import { readFile } from "node:fs/promises";
 import { fileURLToPath } from "node:url";
 import { embedQuery, MODEL, DTYPE, DIM } from "./embedder.mjs";
 
 export const DEFAULT_K = 3;
-export const WEAK_THRESHOLD = 0.55; // 출발값. STEP 5 측정 후 확정하고 CLAUDE.md에 이유를 남긴다
+export const WEAK_THRESHOLD = 0.58; // STEP 5 측정으로 결정 (이유: CLAUDE.md 검색 계약). 이전 출발값 0.55
 export const CATEGORIES = ["ST", "MK", "WK", "CS", "IP", "TH"];
 const VECTORS_PATH = new URL("../data/vectors.json", import.meta.url);
 
@@ -45,15 +46,15 @@ export async function search(question, options = {}) {
 }
 
 export function parseArgs(argv) {
-  const opts = { k: DEFAULT_K, category: undefined }, words = [];
+  const opts = { k: DEFAULT_K, category: undefined }, questions = [];
   for (let i = 0; i < argv.length; i++) {
     if (argv[i] === "--k") opts.k = Number(argv[++i]);
     else if (argv[i] === "--category") opts.category = String(argv[++i] ?? "").toUpperCase();
-    else words.push(argv[i]);
+    else if (argv[i].trim()) questions.push(argv[i].trim());
   }
   if (!Number.isInteger(opts.k) || opts.k < 1) throw new Error("--k는 1 이상의 정수여야 합니다");
   if (opts.category && !CATEGORIES.includes(opts.category)) throw new Error(`--category는 ${CATEGORIES.join("/")} 중 하나`);
-  return { question: words.join(" ").trim(), ...opts };
+  return { questions, ...opts };
 }
 
 export function formatResult(question, { hits, topScore, weak }, { category } = {}) {
@@ -74,9 +75,12 @@ export function formatResult(question, { hits, topScore, weak }, { category } = 
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
   try {
     const opts = parseArgs(process.argv.slice(2));
-    if (!opts.question) throw new Error('질문을 입력하세요. 예: node src/search.mjs "영웅의 여정은 어떤 단계야?"');
-    const result = await search(opts.question, opts);
-    console.log(formatResult(opts.question, result, opts));
+    if (!opts.questions.length) throw new Error('질문을 입력하세요. 예: node src/search.mjs "영웅의 여정은 어떤 단계야?"');
+    const store = await loadStore();
+    for (const q of opts.questions) {
+      const result = searchByVector(store, await embedQuery(q), opts);
+      console.log(formatResult(q, result, opts) + "\n" + "-".repeat(60));
+    }
   } catch (error) {
     console.error(`✗ ${error.message}`);
     process.exitCode = 1;
