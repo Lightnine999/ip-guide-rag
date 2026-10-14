@@ -24,8 +24,20 @@
 - 저작권 침해 소지가 있는 자료는 내용을 넣지 않는다.
 - 만들고 나면 직접 실행해 보고 결과를 같이 보여 준다.
 
+## 데이터 계약 (STEP 2에서 결정)
+- 청크 원본은 `data/chunks.json`, 배열이고 각 항목의 필수 필드는 { id, text, url, section, category, source_type, license, claim_type, checked_at }.
+- 선택 필드: license_note, published_at, location, data_year, evidence_group, review, publisher(기사 필수), wiki_title, paper.
+- id는 분류 접두어 + 번호(ST- / MK- / WK- / CS- / IP- / TH-). 한 번 붙인 id의 뜻은 바꾸지 않는다.
+- text는 최소 120자, 주장 하나, 혼자 읽어도 뜻이 통해야 한다. 원문에 없는 말을 보태지 않는다.
+- category: ST(스튜디오 기법) / MK(확장·마케팅) / WK(스튜디오 작품) / CS(국내 사례) / IP(내 SOP) / TH(스토리텔링 이론).
+- 비슷한 내용을 여러 청크로 쪼개지 않는다. 목록(원칙·단계·비트)은 한 청크에 담고, 같은 사실은 한 청크에만 둔다. 폐기한 id는 다시 쓰지 않는다.
+- source_type: wikipedia / public-domain / gov-open / official / article / source-summary / my-doc.
+- license: CC BY-SA / PD / KOGL-4 / own. 원문을 넣을 수 있는 건 CC BY-SA·PD·(조건 기록한) KOGL-4뿐, 나머지는 원문 문장 없이 출처 요약만.
+- claim_type: fact / interpretation / unverifiable / copyright-blocked. 자료가 없으면 unverifiable, 추정값을 채우지 않는다.
+- url은 확인 가능한 출처. 위키백과는 문서 주소, 논문은 KCI 주소, 내 문서는 `docs/ip-sop.md#제목`(공백은 하이픈).
+- 기사(article)는 publisher·url·published_at이 모두 있어야 하며, 하나라도 없으면 인덱스에서 뺀다.
+
 ## 결정 필요
-- 청크 하나를 어떤 형식(필드)으로 저장할까? (STEP 2, PRD "청크 형식" 참고)
 - 임베딩 모델 설정은 무엇으로 할까? (STEP 3)
 - 검색 결과를 몇 개 보여 주고, 점수가 몇 점 아래면 "관련 자료가 약함"으로 볼까? (STEP 4, 출발값 0.55)
 - LLM에게 어떤 규칙(시스템 메시지)을 줄까? (STEP 6)
