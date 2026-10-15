@@ -55,5 +55,7 @@ for (const q of qs) {
 }
 md.splice(2, 0, "| # | 질문 | RAG 결과 | RAG 없이 답변 시간 |", "| --- | --- | --- | --- |", ...summary, "",
   "환각(자료에 없는 수치·연도·사실) 판정은 아래 답변 원문을 청크와 대조해 README 비교표에 적는다.", "");
-await writeFile(new URL("../eval/compare-results.md", import.meta.url), md.join("\n"), "utf-8");
-console.log("\n저장: eval/compare-results.md");
+// --only로 일부만 돌리면 전체 결과(README 비교표의 원본)를 덮어쓰지 않도록 다른 파일에 저장한다
+const outName = only ? `compare-results-only-${only.join("")}.md` : "compare-results.md";
+await writeFile(new URL(`../eval/${outName}`, import.meta.url), md.join("\n"), "utf-8");
+console.log(`\n저장: eval/${outName}`);

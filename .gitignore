@@ -1,3 +1,5 @@
 node_modules/
 .DS_Store
 .omc/
+# 개인 참고 자료은 내 폴더에만 두고 저장소에는 올리지 않음
+reference/

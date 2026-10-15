@@ -78,14 +78,14 @@
 
 서지 정보는 KCI 검색 결과에서 확인했습니다(2026-10-14). 초록·본문은 STEP 2에서 읽고 `review`를 표시합니다.
 
-**책 5권을 다룬 위키백과 청크 (21개, `wiki-storytelling-chunks.json`).** 출처는 책이 아니라 아래 영문 위키백과 문서입니다(2026-10-14 확인). `source_type: wikipedia`, `license: CC BY-SA`이며, 책 본문은 직접 요약하지 않습니다.
+**책 5권을 다룬 위키백과 청크 (처음 초안 21개를 중복 정리해 `data/chunks.json`에 합침).** 출처는 책이 아니라 아래 영문 위키백과 문서입니다(2026-10-14 확인). `source_type: wikipedia`, `license: CC BY-SA`이며, 책 본문은 직접 요약하지 않습니다.
 
 | 위키백과 문서 | 관련 책 | 청크 | 담은 내용 |
 | --- | --- | --- | --- |
-| [Hero's journey](https://en.wikipedia.org/wiki/Hero%27s_journey) | 『천의 얼굴을 가진 영웅』 | TH-101\~104 | 단일 신화, 출발·입문·귀환 17단계 (입문·귀환은 단계 이름만) |
-| [The Writer's Journey](https://en.wikipedia.org/wiki/The_Writer%27s_Journey:_Mythic_Structure_for_Writers) | 『The Writer's Journey』 | TH-111\~114 | 인물 원형 8가지, 영웅의 여정 12단계 |
-| [Save the Cat!](https://en.wikipedia.org/wiki/Save_the_Cat!:_The_Last_Book_on_Screenwriting_You%27ll_Ever_Need) | 『Save the Cat!』 | TH-121\~127 | 로그라인 4조건, 이야기 유형 10가지, 비트 시트 15비트, 고양이 구하기 규칙, 비판 |
-| [Disney Animation: The Illusion of Life](https://en.wikipedia.org/wiki/Disney_Animation:_The_Illusion_of_Life), [Twelve basic principles of animation](https://en.wikipedia.org/wiki/Twelve_basic_principles_of_animation) | 『The Illusion of Life』 | ST-101\~104 | 책 개요, 애니메이션 12원칙 |
+| [Hero's journey](https://en.wikipedia.org/wiki/Hero%27s_journey) | 『천의 얼굴을 가진 영웅』 | TH-101·102 | 단일 신화, 출발·입문·귀환 17단계 (입문·귀환은 단계 이름만) |
+| [The Writer's Journey](https://en.wikipedia.org/wiki/The_Writer%27s_Journey:_Mythic_Structure_for_Writers) | 『The Writer's Journey』 | TH-111\~113 | 인물 원형 8가지, 영웅의 여정 12단계 |
+| [Save the Cat!](https://en.wikipedia.org/wiki/Save_the_Cat!:_The_Last_Book_on_Screenwriting_You%27ll_Ever_Need) | 『Save the Cat!』 | TH-121\~123, 126, 127 | 로그라인 4조건, 이야기 유형 10가지, 비트 시트 15비트, 고양이 구하기 규칙, 비판 |
+| [Disney Animation: The Illusion of Life](https://en.wikipedia.org/wiki/Disney_Animation:_The_Illusion_of_Life), [Twelve basic principles of animation](https://en.wikipedia.org/wiki/Twelve_basic_principles_of_animation) | 『The Illusion of Life』 | ST-101·102 | 책 개요, 애니메이션 12원칙 |
 | [Creativity, Inc.](https://en.wikipedia.org/wiki/Creativity,_Inc.), [Pixar](https://en.wikipedia.org/wiki/Pixar) | 『Creativity, Inc.』 | ST-111\~112 | 책 개요, 픽사 브레인트러스트 |
 
 **저작권 기준.** 자료는 네 묶음으로 나눕니다.
