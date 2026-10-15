@@ -71,6 +71,9 @@
 - ⑦ 출처 규칙 한 번 더: "(답할 때 근거로 쓴 자료의 ID를 [MK-000]처럼 문장 끝에 붙입니다.)"
 - LLM: Ollama http://localhost:11434, 모델 qwen3.5:2b, POST /api/chat, { model, messages, stream: true, think: false, options: { temperature: 0 } }. 응답은 NDJSON. TextDecoder는 { stream: true }.
 - 근거 표시는 LLM에 맡기지 않는다. 답변 뒤에 LLM에게 넘긴 자료를 모두 보여 주고, 답변에 ID가 적힌 자료에 ✓를 붙인다.
+- 실행 (STEP 7): `node src/ask.mjs "질문" [--k 3] [--show-prompt] [--no-rag]`. `src/ollama.mjs`는 `pingOllama()`(GET /api/tags), `chatStream(messages, onToken)`(NDJSON 줄 단위 파싱, 덜 받은 줄은 버퍼에 남김, 전체 답변 반환)만 담당한다.
+- 출력 순서: "🔎 검색 결과"(id·점수·section, 약하면 ⚠) → "💬 답변"(스트리밍) → "📚 근거 (LLM에게 넘긴 자료 · ✓ = 답변에 ID가 표시된 자료)"(검색된 자료 전부, 답변에 그 ID 글자가 괄호 모양과 상관없이 있으면 ✓) → "⏱ 검색 x초 · 답변 y초". ✓가 하나도 없으면 "(답변에 ID 표시가 없습니다. 위 자료와 답변을 비교해 확인하세요)". 관문에서 멈추면 💬 자리에 멈춘 이유와 "(LLM에 넘기지 않음)"만 출력한다.
+- `--no-rag`: 비교 실험용. 관문·검색·시스템 메시지 없이 질문만 LLM에 보내고 💬 답변과 ⏱ 답변 시간만 출력한다.
 - Ollama 연결 확인은 실제로 LLM을 호출할 때만 한다(--show-prompt는 Ollama 없이 동작). 연결이 안 되면 "Ollama가 실행 중인지 확인하세요"와 확인 명령을 안내하고 종료.
 
 ## 결정 필요
