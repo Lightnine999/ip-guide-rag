@@ -1,5 +1,5 @@
 // [1단계] 질문 → 비슷한 청크 top-k
-// 실행: node src/search.mjs "질문1" ["질문2" …] [--k 3] [--category ST|MK|WK|CS|IP|TH]
+// 실행: node src/search.mjs "질문1" ["질문2" …] [--k 3] [--category ST|MK|WK|CS|TH]
 // 질문마다 따옴표로 감싼다. 여러 질문을 한 번에 넣으면 모델을 한 번만 불러온다
 import { readFile } from "node:fs/promises";
 import { fileURLToPath } from "node:url";
@@ -7,7 +7,7 @@ import { embedQuery, MODEL, DTYPE, DIM } from "./embedder.mjs";
 
 export const DEFAULT_K = 3;
 export const WEAK_THRESHOLD = 0.58; // STEP 5 측정으로 결정 (이유: CLAUDE.md 검색 계약). 이전 출발값 0.55
-export const CATEGORIES = ["ST", "MK", "WK", "CS", "IP", "TH"];
+export const CATEGORIES = ["ST", "MK", "WK", "CS", "TH"];
 const VECTORS_PATH = new URL("../data/vectors.json", import.meta.url);
 
 export async function loadStore() {

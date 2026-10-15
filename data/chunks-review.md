@@ -1,4 +1,4 @@
-# chunks.json 검토표 (STEP 2, v3 · 2026-10-15)
+# chunks.json 검토표 (STEP 2, v4 · 2026-10-15)
 
 원문 대조 체크: url을 열어 text 내용이 원문에 있는지 확인하고 ✅ 표시. KCI 청크는 초록 기준, `url_extra`가 있는 작품은 영문 위키백과로 보충한 청크입니다.
 
@@ -9,6 +9,8 @@
 - 새 분류 WK(스튜디오 작품) 추가: 스튜디오 지브리 23편(WK-101~123), 픽사 31편(WK-201~231)
 - v3 (STEP 2 검수): PRD 코퍼스 표에 있었는데 빠진 출처 13개 청크 추가 — ST-105~106 스토리보드, ST-107 모델 시트, TH-007 서사학, TH-008 클리셰, TH-009 시학(위키), TH-010 3막 구조, TH-011 기승전결, TH-012 체호프의 총, TH-013 36가지 극적 상황, TH-014~016 『시학』 원문(구텐베르크, 퍼블릭 도메인)
 - v3 검수: 필수 필드·허용 값·라이선스 조합·id 접두어·120자 규칙을 119개 전체에 자동 검사 → 위반 0건. WK 제외 청크쌍 유사도 최대 0.09
+- v4 (STEP 6 중): 내 작업 기준(IP-001~003, `docs/ip-sop.md`)을 RAG에서 뺌 → 폐기 id IP-001~003. 개인 생각·Claude 추측이 섞일 수 있는 자료는 넣지 않는다. 이름 변경: source_type `source-summary` → `paper-abstract`(논문 초록 정리), license `own` → `link-only`(원문 미수록, 출처 링크만). 청크 116개
+- v4 추가: "IP가 뭐야?" 질문에 근거가 없던 문제 → MK-015~017 IP 정의·종류(위키백과 「지식 재산권」, 「Intellectual property」, 2026-10-15 확인). 청크 119개
 - 중복 점검: 전체 청크 쌍의 글자 3-gram 유사도 최대 0.20 (작품 청크끼리의 '픽사 제작·디즈니 배급' 같은 공통 문구). WK 외 청크끼리는 모두 0.12 미만.
 
 | ✅ | id | 분류 | 출처 종류 | 글자 수 | 섹션 | url |
@@ -34,6 +36,9 @@
 | [ ] | MK-012 | MK | wikipedia | 204 | 위키백과 「스튜디오 지브리」 – 설립과 운영 방식 | https://ko.wikipedia.org/wiki/%EC%8A%A4%ED%8A%9C%EB%94%94%EC%98%A4_%EC%A7%80%EB%B8%8C%EB%A6%AC |
 | [ ] | MK-013 | MK | wikipedia | 183 | 위키백과 「픽사」 – 개요와 디즈니 인수 | https://ko.wikipedia.org/wiki/%ED%94%BD%EC%82%AC |
 | [ ] | MK-014 | MK | wikipedia | 178 | 위키백과 「픽사」 – 출발: 하드웨어 회사에서 스튜디오로 | https://ko.wikipedia.org/wiki/%ED%94%BD%EC%82%AC |
+| [ ] | MK-015 | MK | wikipedia | 190 | 위키백과 「지식 재산권」 – IP의 정의 | https://ko.wikipedia.org/wiki/%EC%A7%80%EC%8B%9D_%EC%9E%AC%EC%82%B0%EA%B6%8C |
+| [ ] | MK-016 | MK | wikipedia | 226 | 위키백과 「지식 재산권」 – 종류: 산업재산권과 저작권 | https://ko.wikipedia.org/wiki/%EC%A7%80%EC%8B%9D_%EC%9E%AC%EC%82%B0%EA%B6%8C |
+| [ ] | MK-017 | MK | wikipedia | 207 | 위키백과 「Intellectual property」 – IP와 IPR의 구분, 제도의 목적 | https://en.wikipedia.org/wiki/Intellectual_property |
 | [ ] | WK-101 | WK | wikipedia | 192 | 스튜디오 지브리 작품 – 바람계곡의 나우시카 (1984) | https://ko.wikipedia.org/wiki/%EB%B0%94%EB%9E%8C%EA%B3%84%EA%B3%A1%EC%9D%98_%EB%82%98%EC%9A%B0%EC%8B%9C%EC%B9%B4_%28%EC%98%81%ED%99%94%29 |
 | [ ] | WK-102 | WK | wikipedia | 182 | 스튜디오 지브리 작품 – 천공의 성 라퓨타 (1986) | https://ko.wikipedia.org/wiki/%EC%B2%9C%EA%B3%B5%EC%9D%98_%EC%84%B1_%EB%9D%BC%ED%93%A8%ED%83%80 |
 | [ ] | WK-103 | WK | wikipedia | 133 | 스튜디오 지브리 작품 – 이웃집 토토로 (1988) | https://ko.wikipedia.org/wiki/%EC%9D%B4%EC%9B%83%EC%A7%91_%ED%86%A0%ED%86%A0%EB%A1%9C |
@@ -96,16 +101,13 @@
 | [ ] | CS-006 | CS | wikipedia | 181 | 위키백과 「IPX (기업)」 – 스티커가 캐릭터가 된 과정 | https://ko.wikipedia.org/wiki/IPX_%28%EA%B8%B0%EC%97%85%29 |
 | [ ] | CS-007 | CS | wikipedia | 150 | 위키백과 「IPX (기업)」 – 상품·협업과 BT21 | https://ko.wikipedia.org/wiki/IPX_%28%EA%B8%B0%EC%97%85%29 |
 | [ ] | CS-008 | CS | wikipedia | 175 | 위키백과 「IPX (기업)」 – 해외 진출 | https://ko.wikipedia.org/wiki/IPX_%28%EA%B8%B0%EC%97%85%29 |
-| [ ] | CS-011 | CS | source-summary | 197 | KCI 논문 「스토리텔링을 활용한 인스타그램 캐릭터의 활성화 전략 연구: 〈최고심〉을 중심으로」 – 세계관과 콘텐츠 유형 | https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART003094385 |
-| [ ] | CS-012 | CS | source-summary | 203 | KCI 논문 「스토리텔링을 활용한 인스타그램 캐릭터의 활성화 전략 연구: 〈최고심〉을 중심으로」 – 활성화 전략 5가지 | https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART003094385 |
-| [ ] | CS-013 | CS | source-summary | 181 | KCI 논문 「캐릭터–스포츠 협업 사례의 스토리텔링 전략 연구」 – 망그러진 곰 × 두산베어스 협업 서사 | https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART003310557 |
-| [ ] | CS-014 | CS | source-summary | 194 | KCI 논문 「캐릭터–스포츠 협업 사례의 스토리텔링 전략 연구」 – 트랜스미디어 확산과 팬 참여 | https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART003310557 |
-| [ ] | CS-015 | CS | source-summary | 199 | KCI 논문 「지역 콘텐츠IP를 활용한 로컬 브랜딩 성공 요인 도출: 애니메이션 〈엄마 까투리〉 개발사례를 중심으로」 – 엄마 까투리의 개발 과정 | https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART002981409 |
-| [ ] | CS-016 | CS | source-summary | 191 | KCI 논문 「지역 콘텐츠IP를 활용한 로컬 브랜딩 성공 요인 도출: 애니메이션 〈엄마 까투리〉 개발사례를 중심으로」 – 성과와 연구의 한계 | https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART002981409 |
-| [ ] | CS-017 | CS | source-summary | 178 | KCI 논문 「SNS웹툰 IP와 캐릭터 융합사례 연구: 스토리텔링의 정서적 공감 요인을 중심으로」 – SNS웹툰 IP의 정서적 공감 요인 | https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART003131097 |
-| [ ] | IP-001 | IP | my-doc | 285 | 캐릭터 시트 작성 | docs/ip-sop.md#캐릭터-시트-작성 |
-| [ ] | IP-002 | IP | my-doc | 223 | 세계관 규칙 정하기 | docs/ip-sop.md#세계관-규칙-정하기 |
-| [ ] | IP-003 | IP | my-doc | 287 | 매체 확장 검토 | docs/ip-sop.md#매체-확장-검토 |
+| [ ] | CS-011 | CS | paper-abstract | 197 | KCI 논문 「스토리텔링을 활용한 인스타그램 캐릭터의 활성화 전략 연구: 〈최고심〉을 중심으로」 – 세계관과 콘텐츠 유형 | https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART003094385 |
+| [ ] | CS-012 | CS | paper-abstract | 203 | KCI 논문 「스토리텔링을 활용한 인스타그램 캐릭터의 활성화 전략 연구: 〈최고심〉을 중심으로」 – 활성화 전략 5가지 | https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART003094385 |
+| [ ] | CS-013 | CS | paper-abstract | 181 | KCI 논문 「캐릭터–스포츠 협업 사례의 스토리텔링 전략 연구」 – 망그러진 곰 × 두산베어스 협업 서사 | https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART003310557 |
+| [ ] | CS-014 | CS | paper-abstract | 194 | KCI 논문 「캐릭터–스포츠 협업 사례의 스토리텔링 전략 연구」 – 트랜스미디어 확산과 팬 참여 | https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART003310557 |
+| [ ] | CS-015 | CS | paper-abstract | 199 | KCI 논문 「지역 콘텐츠IP를 활용한 로컬 브랜딩 성공 요인 도출: 애니메이션 〈엄마 까투리〉 개발사례를 중심으로」 – 엄마 까투리의 개발 과정 | https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART002981409 |
+| [ ] | CS-016 | CS | paper-abstract | 191 | KCI 논문 「지역 콘텐츠IP를 활용한 로컬 브랜딩 성공 요인 도출: 애니메이션 〈엄마 까투리〉 개발사례를 중심으로」 – 성과와 연구의 한계 | https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART002981409 |
+| [ ] | CS-017 | CS | paper-abstract | 178 | KCI 논문 「SNS웹툰 IP와 캐릭터 융합사례 연구: 스토리텔링의 정서적 공감 요인을 중심으로」 – SNS웹툰 IP의 정서적 공감 요인 | https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART003131097 |
 | [ ] | TH-001 | TH | wikipedia | 164 | 위키백과 「플롯」 – 정의: 스토리와의 차이 | https://ko.wikipedia.org/wiki/%ED%94%8C%EB%A1%AF |
 | [ ] | TH-002 | TH | wikipedia | 176 | 위키백과 「플롯」 – 4단계 구조와 플롯 장치 | https://ko.wikipedia.org/wiki/%ED%94%8C%EB%A1%AF |
 | [ ] | TH-003 | TH | wikipedia | 167 | 위키백과 「플롯」 – 플롯의 유형 | https://ko.wikipedia.org/wiki/%ED%94%8C%EB%A1%AF |
@@ -137,5 +139,5 @@
 
 - 스티키몬스터랩, 조구만, 무직타이거: 공식 사이트·기사(언론사·URL·발행일 필수)로 수집 예정
 - 《2025 캐릭터산업백서》: 공공누리 유형 확인 후
-- 책 5권 출처 요약: 책을 읽은 뒤 쪽수와 함께
+- 책 본문은 직접 요약하지 않고 위키백과 문서로 대신함 (2026-10-15)
 - 지브리 목록은 위키백과 '스튜디오 지브리 제작 작품' 섹션 기준(23편). 《붉은 거북》(2016), 《아야와 마녀》(2020)는 그 목록에 없어 넣지 않음

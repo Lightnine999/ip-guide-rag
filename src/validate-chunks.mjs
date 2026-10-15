@@ -4,10 +4,10 @@ import { fileURLToPath } from "node:url";
 
 export const REQUIRED = ["id", "text", "url", "section", "category", "source_type", "license", "claim_type", "checked_at"];
 export const ALLOWED = {
-  category: ["ST", "MK", "WK", "CS", "IP", "TH"],
-  source_type: ["wikipedia", "public-domain", "gov-open", "official", "article", "source-summary", "my-doc"],
-  license: ["CC BY-SA", "PD", "KOGL-4", "own"],
-  claim_type: ["fact", "interpretation", "unverifiable", "copyright-blocked"],
+  category: ["ST", "MK", "WK", "CS", "TH"],
+  source_type: ["wikipedia", "public-domain", "gov-open", "official", "article", "paper-abstract"],
+  license: ["CC BY-SA", "PD", "KOGL-4", "link-only"],
+  claim_type: ["fact", "unverifiable", "copyright-blocked"],
 };
 const ORIGINAL_OK = ["CC BY-SA", "PD", "KOGL-4"];
 export const MIN_TEXT = 120;
@@ -36,6 +36,7 @@ export function validateChunks(chunks) {
       if (filled(c?.[f]) && !allowed.includes(c[f])) errors.push(`${label}: ${f} 값 "${c[f]}"는 허용되지 않음`);
     }
     if (filled(c?.id)) {
+      if (c.id === "MK-000") errors.push("MK-000: 프롬프트 표기 견본 id라 청크 id로 쓸 수 없음");
       if (seen.has(c.id)) errors.push(`${c.id}: 중복 id`);
       seen.add(c.id);
       if (filled(c?.category) && !c.id.startsWith(c.category + "-")) errors.push(`${c.id}: id 접두어가 category(${c.category})와 다름`);
@@ -44,8 +45,8 @@ export function validateChunks(chunks) {
     if (c?.claim_type !== "copyright-blocked" && typeof c?.text === "string" && c.text.length < MIN_TEXT) {
       errors.push(`${label}: text ${c.text.length}자 (최소 ${MIN_TEXT}자)`);
     }
-    if (filled(c?.license) && !ORIGINAL_OK.includes(c.license) && !["source-summary", "my-doc", "article"].includes(c?.source_type)) {
-      errors.push(`${label}: license ${c.license}인데 source_type이 source-summary/my-doc/article이 아님 (원문 수록 금지)`);
+    if (filled(c?.license) && !ORIGINAL_OK.includes(c.license) && !["paper-abstract", "article"].includes(c?.source_type)) {
+      errors.push(`${label}: license ${c.license}인데 source_type이 paper-abstract/article이 아님 (원문 수록 금지)`);
     }
     keep.push(c);
   });
