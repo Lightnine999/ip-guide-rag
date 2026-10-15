@@ -19,7 +19,11 @@ export async function chatStream(messages, onToken = () => {}) {
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ model: LLM_MODEL, messages, stream: true, think: false, options: { temperature: 0 } }),
   });
-  if (!res.ok) throw new Error(`Ollama 응답 오류 ${res.status}: ${await res.text()}`);
+  if (!res.ok) {
+    const body = await res.text();
+    if (res.status === 404 || /not found/i.test(body)) throw new Error(`Ollama에 ${LLM_MODEL} 모델이 없습니다. \`ollama pull ${LLM_MODEL}\` 후 다시 시도하세요`);
+    throw new Error(`Ollama 응답 오류 ${res.status}: ${body}`);
+  }
 
   const decoder = new TextDecoder("utf-8"); // { stream: true }로 써야 한글이 조각 경계에서 깨지지 않는다
   let buffer = "", answer = "";

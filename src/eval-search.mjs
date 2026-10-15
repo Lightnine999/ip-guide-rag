@@ -19,14 +19,16 @@ for (const q of qs) {
 }
 
 // 범위 차단 질문은 기준 점수 계산에서 뺀다 (점수로 거를 대상이 아님)
-const inRows = rows.filter((r) => r.expected.length), outRows = rows.filter((r) => !r.expected.length && !r.scopeBlocked);
+const inRows = rows.filter((r) => r.expected.length), outRows = rows.filter((r) => !r.expected.length && !r.scopeBlocked && r.gate !== "llm");
 const blockedRows = rows.filter((r) => r.scopeBlocked);
+// 주제는 같지만 답이 없는 질문(gate: "llm")은 점수로 거를 수 없고 LLM 규칙이 막는다 → 점수 기준 계산에서 뺀다
+const llmRows = rows.filter((r) => !r.scopeBlocked && r.gate === "llm");
 const hits = inRows.filter((r) => r.hit).length;
 const minIn = Math.min(...inRows.map((r) => r.scores[0])), maxOut = Math.max(...outRows.map((r) => r.scores[0]));
 const summary = [
   `Hit@3: ${hits}/${inRows.length}`,
   `자료 안 질문의 1위 점수 최솟값: ${minIn.toFixed(3)}`,
-  `자료 밖 질문의 1위 점수 최댓값: ${maxOut.toFixed(3)} (범위 차단 ${blockedRows.length}개 제외: ${blockedRows.map((r) => `${r.no}번`).join(", ") || "없음"})`,
+  `자료 밖 질문의 1위 점수 최댓값: ${maxOut.toFixed(3)} (범위 차단 ${blockedRows.length}개 제외: ${blockedRows.map((r) => `${r.no}번`).join(", ") || "없음"} · 주제 안·답 없음 ${llmRows.length}개 제외: ${llmRows.map((r) => `${r.no}번(${r.scores[0].toFixed(3)}, LLM 규칙이 처리)`).join(", ") || "없음"})`,
   `현재 기준 ${WEAK_THRESHOLD}: 자료 밖 ${outRows.filter((r) => r.weak).length}/${outRows.length}개를 '약함'으로 잡음, 자료 안 ${inRows.filter((r) => r.weak).length}/${inRows.length}개를 잘못 '약함'으로 표시`,
   minIn > maxOut ? `두 그룹이 갈림 → ${maxOut.toFixed(3)}~${minIn.toFixed(3)} 사이 어느 값이든 판정이 같음 (중간값 ${((minIn + maxOut) / 2).toFixed(3)}, 현재 기준 ${WEAK_THRESHOLD}${WEAK_THRESHOLD > maxOut && WEAK_THRESHOLD < minIn ? " 안에 있음" : " 밖에 있음 → 재검토"})` : `두 그룹 점수가 겹침 → 점수 기준만으로는 완전히 가를 수 없음 (STEP 6 규칙으로 보완)`,
 ];
@@ -45,7 +47,7 @@ console.log("\n" + summary.join("\n"));
 const md = [
   `# STEP 5 검색 관찰 결과 (${new Date().toISOString().slice(0, 10)}, 청크 ${store.count}개)`, "",
   "| # | 분류 | 유형 | 질문 | 1위 | 점수 | 2위 | 3위 | 정답 포함 / 판정 |", "| --- | --- | --- | --- | --- | --- | --- | --- | --- |",
-  ...rows.map((r) => `| ${r.no} | ${r.group} | ${r.type} | ${r.question} | ${r.top3[0]} | ${r.scores[0].toFixed(3)}${r.weak ? " ⚠" : ""} | ${r.top3[1]} (${r.scores[1].toFixed(3)}) | ${r.top3[2]} (${r.scores[2].toFixed(3)}) | ${r.scopeBlocked ? "⛔ 범위 차단" : r.hit === null ? "—" : r.hit ? "✅" : "❌"} |`),
+  ...rows.map((r) => `| ${r.no} | ${r.group} | ${r.type} | ${r.question} | ${r.top3[0]} | ${r.scores[0].toFixed(3)}${r.weak ? " ⚠" : ""} | ${r.top3[1]} (${r.scores[1].toFixed(3)}) | ${r.top3[2]} (${r.scores[2].toFixed(3)}) | ${r.scopeBlocked ? "⛔ 범위 차단" : r.gate === "llm" ? "LLM 규칙이 처리" : r.hit === null ? "—" : r.hit ? "✅" : "❌"} |`),
   "", "## 요약", "", ...summary.map((s) => `- ${s}`), "",
 ];
 await writeFile(new URL("../eval/search-results.md", import.meta.url), md.join("\n"), "utf-8");

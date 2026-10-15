@@ -1,4 +1,4 @@
-# chunks.json 검토표 (STEP 2, v4 · 2026-10-15)
+# chunks.json 검토표 (STEP 2, v6 · 2026-10-15)
 
 원문 대조 체크: url을 열어 text 내용이 원문에 있는지 확인하고 ✅ 표시. KCI 청크는 초록 기준, `url_extra`가 있는 작품은 영문 위키백과로 보충한 청크입니다.
 
@@ -11,6 +11,8 @@
 - v3 검수: 필수 필드·허용 값·라이선스 조합·id 접두어·120자 규칙을 119개 전체에 자동 검사 → 위반 0건. WK 제외 청크쌍 유사도 최대 0.09
 - v4 (STEP 6 중): 내 작업 기준(IP-001~003, `docs/ip-sop.md`)을 RAG에서 뺌 → 폐기 id IP-001~003. 개인 생각·Claude 추측이 섞일 수 있는 자료는 넣지 않는다. 이름 변경: source_type `source-summary` → `paper-abstract`(논문 초록 정리), license `own` → `link-only`(원문 미수록, 출처 링크만). 청크 116개
 - v4 추가: "IP가 뭐야?" 질문에 근거가 없던 문제 → MK-015~017 IP 정의·종류(위키백과 「지식 재산권」, 「Intellectual property」, 2026-10-15 확인). 청크 119개
+- v5 (STEP 8 전): 무직타이거 기사 5건(뉴시스 2022-01-10, 경제인뉴스 2023-03-31, 문화뉴스 2024-03-07, MTN 2025-04-02, 뉴스핌 2026-02-13)을 원문 없이 요약해 CS-021~026 추가. 기사에 적힌 사실만, 회사 발표는 "대원미디어에 따르면"으로 출처를 밝힘. 매출 수치는 출처가 없어 넣지 않음. CS-008·TH-102 본문에 섞여 있던 검토 메모를 `review_note`로 옮김. 청크 125개
+- v6: 조구만 스튜디오 기사 5건(연세춘추 2017-10-25, 중앙일보·폴인 2022-04-14, 이코노믹리뷰 2023-07-17, 디자인플러스 2025-01-23)을 원문 없이 요약해 CS-031~038 추가. 초기 채널은 페이스북 페이지(2017-04-01, 연세춘추)로, "인스타그램에서 먼저 팬을 모았다"는 출처를 찾지 못해 넣지 않음. 청크 133개
 - 중복 점검: 전체 청크 쌍의 글자 3-gram 유사도 최대 0.20 (작품 청크끼리의 '픽사 제작·디즈니 배급' 같은 공통 문구). WK 외 청크끼리는 모두 0.12 미만.
 
 | ✅ | id | 분류 | 출처 종류 | 글자 수 | 섹션 | url |
@@ -108,6 +110,20 @@
 | [ ] | CS-015 | CS | paper-abstract | 199 | KCI 논문 「지역 콘텐츠IP를 활용한 로컬 브랜딩 성공 요인 도출: 애니메이션 〈엄마 까투리〉 개발사례를 중심으로」 – 엄마 까투리의 개발 과정 | https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART002981409 |
 | [ ] | CS-016 | CS | paper-abstract | 191 | KCI 논문 「지역 콘텐츠IP를 활용한 로컬 브랜딩 성공 요인 도출: 애니메이션 〈엄마 까투리〉 개발사례를 중심으로」 – 성과와 연구의 한계 | https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART002981409 |
 | [ ] | CS-017 | CS | paper-abstract | 178 | KCI 논문 「SNS웹툰 IP와 캐릭터 융합사례 연구: 스토리텔링의 정서적 공감 요인을 중심으로」 – SNS웹툰 IP의 정서적 공감 요인 | https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART003131097 |
+| [ ] | CS-021 | CS | article | 206 | 경제인뉴스 「전통 호랑이 '무직타이거', 한국을 넘어 세계로! 스튜디오무직」 – 브랜드의 시작과 뜻 (경제인뉴스, 2023-03-31) | https://www.newseconomy.kr/news/articleView.html?idxno=4856 |
+| [ ] | CS-022 | CS | article | 172 | 경제인뉴스 「전통 호랑이 '무직타이거', 한국을 넘어 세계로! 스튜디오무직」 – 사업 방식과 협업 상품 (경제인뉴스, 2023-03-31) | https://www.newseconomy.kr/news/articleView.html?idxno=4856 |
+| [ ] | CS-023 | CS | article | 224 | 뉴시스 「대원미디어, '무직타이거' 공동 원작자 지위 획득」 – 라이선싱 에이전트에서 공동 원작자로 (뉴시스, 2022-01-10) | https://www.newsis.com/view/NISX20220110_0001718528 |
+| [ ] | CS-024 | CS | article | 193 | 문화뉴스 「무직타이거, 일본을 사로잡다... 대원미디어의 글로벌 도약」 – 일본 상품 계약과 협업 (문화뉴스, 2024-03-07) | https://www.mhns.co.kr/news/articleView.html?idxno=576299 |
+| [ ] | CS-025 | CS | article | 233 | MTN 「애니판 '무직타이거' 오늘 韓-日 첫 공개」 – 일러스트에서 숏폼 애니메이션으로 (머니투데이방송(MTN), 2025-04-02) | https://news.mtn.co.kr/news-detail/2025040215015448456 |
+| [ ] | CS-026 | CS | article | 198 | 뉴스핌 「대원미디어, K-캐릭터 '무직타이거' 글로벌 시장 공략 본격화」 – 눈축제 참여와 협업 상품 수출 (뉴스핌, 2026-02-13) | https://www.newspim.com/news/view/20260213000687 |
+| [ ] | CS-031 | CS | article | 177 | 연세춘추 「조구맣다고 안 중요하단건 아냐!」 – 시작: 페이스북 페이지와 첫 프로젝트 (연세춘추, 2017-10-25) | https://chunchu.yonsei.ac.kr/news/articleView.html?idxno=23162 |
+| [ ] | CS-032 | CS | article | 193 | 연세춘추 「조구맣다고 안 중요하단건 아냐!」 – 페이스북 카드뉴스와 초기 고민 (연세춘추, 2017-10-25) | https://chunchu.yonsei.ac.kr/news/articleView.html?idxno=23162 |
+| [ ] | CS-033 | CS | article | 214 | 중앙일보(폴인) 「MZ세대가 사랑한 공룡…'조구만 월드' 10배 성장한 비결은」 – 시작과 공룡을 고른 이유 (중앙일보, 2022-04-14) | https://www.joongang.co.kr/article/25063486 |
+| [ ] | CS-034 | CS | article | 192 | 중앙일보(폴인) 「MZ세대가 사랑한 공룡…'조구만 월드' 10배 성장한 비결은」 – 굿즈 리테일에서 캐릭터 IP로 (중앙일보, 2022-04-14) | https://www.joongang.co.kr/article/25063486 |
+| [ ] | CS-035 | CS | article | 204 | 중앙일보(폴인) 「MZ세대가 사랑한 공룡…'조구만 월드' 10배 성장한 비결은」 – 책 출간, 수익 다각화, 해외 수출 (중앙일보, 2022-04-14) | https://www.joongang.co.kr/article/25063486 |
+| [ ] | CS-036 | CS | article | 212 | 이코노믹리뷰 「IPX × 조구만 스튜디오, 글로벌 캐릭터 시장 공략」 – IPX와 글로벌 IP 사업 (이코노믹리뷰, 2023-07-17) | https://www.econovill.com/news/articleView.html?idxno=618196 |
+| [ ] | CS-037 | CS | article | 222 | 디자인플러스 「[Creator+] 크리에이티브 스튜디오 조구만 스튜디오」 – 공룡 캐릭터의 탄생과 협업 (디자인플러스, 2025-01-23) | https://design.co.kr/article/107867/ |
+| [ ] | CS-038 | CS | article | 181 | 디자인플러스 「[Creator+] 크리에이티브 스튜디오 조구만 스튜디오」 – 세계관을 설계하는 방식 (디자인플러스, 2025-01-23) | https://design.co.kr/article/107867/ |
 | [ ] | TH-001 | TH | wikipedia | 164 | 위키백과 「플롯」 – 정의: 스토리와의 차이 | https://ko.wikipedia.org/wiki/%ED%94%8C%EB%A1%AF |
 | [ ] | TH-002 | TH | wikipedia | 176 | 위키백과 「플롯」 – 4단계 구조와 플롯 장치 | https://ko.wikipedia.org/wiki/%ED%94%8C%EB%A1%AF |
 | [ ] | TH-003 | TH | wikipedia | 167 | 위키백과 「플롯」 – 플롯의 유형 | https://ko.wikipedia.org/wiki/%ED%94%8C%EB%A1%AF |
@@ -135,9 +151,14 @@
 | [ ] | TH-126 | TH | wikipedia | 183 | 위키백과 「Save the Cat!: The Last Book on Screenwriting You'll Ever Need」 – 고양이 구하기 규칙과 보드 | https://en.wikipedia.org/wiki/Save_the_Cat!:_The_Last_Book_on_Screenwriting_You%27ll_Ever_Need |
 | [ ] | TH-127 | TH | wikipedia | 190 | 위키백과 「Save the Cat!: The Last Book on Screenwriting You'll Ever Need」 – 평가와 비판 | https://en.wikipedia.org/wiki/Save_the_Cat!:_The_Last_Book_on_Screenwriting_You%27ll_Ever_Need |
 
+## 제외한 자료
+
+- 「조구만 IP 성장 IR 시각화 v2」 PDF (2026-10-15 검토): 작성자·발행처가 없고 쪽마다 출처가 없음. "200% 연평균 성장", "SNS 팔로워 300% 증가", "글로벌 팬 40만", "브랜드 협업 100+", 국가별 진출 연도·쇼핑몰 이름 등 수치·사실의 근거를 확인할 수 없음. "핵심 해석", "IP 가치 80~300억(공식 평가 아님)" 같은 해석·추정이 섞여 있음. 기사와 겹치는 사실(티셔츠 100장 예상 → 700장, 2023 IPX, 대상·케이스티파이·NC 다이노스·불가리 협업)은 이미 기사 청크(CS-031~038)에 출처와 함께 있음. 조구만 캐릭터 그림도 들어 있어 저작권 문제 소지.
+- ChatGPT가 정리한 조구만 성장 단계 표: 출처가 아니라 생성된 요약. "인스타그램에서 먼저 팬을 모았다"는 기사에서 확인되지 않음(연세춘추는 페이스북 페이지로 시작했다고 적음).
+
 ## 아직 없는 자료
 
-- 스티키몬스터랩, 조구만, 무직타이거: 공식 사이트·기사(언론사·URL·발행일 필수)로 수집 예정
+- 스티키몬스터랩: 공식 사이트·기사(언론사·URL·발행일 필수)로 수집 예정 (무직타이거 v5, 조구만 v6에서 추가)
 - 《2025 캐릭터산업백서》: 공공누리 유형 확인 후
 - 책 본문은 직접 요약하지 않고 위키백과 문서로 대신함 (2026-10-15)
 - 지브리 목록은 위키백과 '스튜디오 지브리 제작 작품' 섹션 기준(23편). 《붉은 거북》(2016), 《아야와 마녀》(2020)는 그 목록에 없어 넣지 않음

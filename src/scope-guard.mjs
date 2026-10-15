@@ -36,7 +36,8 @@ export const SCOPE_RULES = [
   },
 ];
 
-export const SCOPE_MESSAGE = "작품 평가·아이디어 생성·성공 예측은 자료로 판단할 수 없어 확인 불가";
+import { REPLY } from "./messages.mjs";
+export const SCOPE_MESSAGE = REPLY.OUT_OF_SCOPE;
 
 export function checkScope(question) {
   for (const rule of SCOPE_RULES) {

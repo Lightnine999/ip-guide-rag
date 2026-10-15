@@ -4,6 +4,7 @@
 import { readFile } from "node:fs/promises";
 import { fileURLToPath } from "node:url";
 import { embedQuery, MODEL, DTYPE, DIM } from "./embedder.mjs";
+import { REPLY } from "./messages.mjs";
 
 export const DEFAULT_K = 3;
 export const WEAK_THRESHOLD = 0.58; // STEP 5 측정으로 결정 (이유: CLAUDE.md 검색 계약). 이전 출발값 0.55
@@ -62,7 +63,7 @@ export function formatResult(question, { hits, topScore, weak }, { category } = 
   hits.forEach((h, i) => {
     lines.push(`${i + 1}. [${h.id}] 점수 ${h.score.toFixed(3)} · ${h.section}`);
     if (h.claim_type === "copyright-blocked") {
-      lines.push("   저작권 침해 요소가 있어 내용 확인 불가");
+      lines.push(`   ${REPLY.COPYRIGHT}`);
     } else {
       lines.push(`   ${h.text.length > 140 ? h.text.slice(0, 140) + "…" : h.text}`);
     }
