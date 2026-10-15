@@ -53,9 +53,19 @@ flowchart TB
 | 5. 관문 2 (근거 강도) | 1위 점수가 0.58 미만이거나 1위가 저작권 차단 자료면 LLM을 부르지 않음. 2·3위 중 0.58 미만 자료도 빼고 넘김 | `src/ask.mjs` (`decide`, `usableHits`) |
 | 6. 프롬프트 조립 | 시스템 메시지(자료 안에서만 답하기, 없으면 정해진 문구) + ① 자료 소개 ② 근거 원칙 ③ 출처 규칙 ④ 현재 시각 ⑤ 자료 ⑥ 질문 ⑦ 출처 규칙 반복 | `src/prompt.mjs`, `src/messages.mjs` |
 | 7. 생성 | Ollama `/api/chat`에 stream·think:false·temperature 0으로 보내고, NDJSON 조각을 받는 대로 출력 | `src/ollama.mjs` |
-| 8. 근거 표시 | LLM에 넘긴 자료를 모두 📚 목록으로 보여 주고, 답변에 그 ID가 있으면 ✓. 견본 ID(`MK-000`)를 베끼면 ⚠ | `src/ask.mjs` (`formatSources`) |
+| 8. 근거 표시 | 답변 아래에 LLM에게 넘긴 자료를 출처 링크와 함께 모두 나열합니다(📚 근거). 답변 안에 어떤 자료의 ID(예: `[MK-015]`)가 적혀 있으면 그 자료 앞에 ✓를 붙여 "이 자료를 근거로 썼다"고 표시합니다. | `src/ask.mjs` (`formatSources`) |
 
-근거 목록을 LLM이 아니라 프로그램이 만드는 이유: 2B 모델은 근거 ID를 자주 빼먹습니다(8장). ID가 없어도 어떤 자료를 보고 답했는지 확인할 수 있게 하려는 것입니다.
+근거 목록을 LLM이 아니라 프로그램이 만드는 이유: 2B 모델은 근거 ID를 자주 빼먹습니다(8장). ID가 없어도 어떤 자료를 보고 답했는지 확인할 수 있게 하려는 것입니다. 출력은 이런 모양입니다.
+
+```text
+📚 근거 (LLM에게 넘긴 자료 · ✓ = 답변에 ID가 표시된 자료)
+  ✓ MK-015  위키백과 「지식 재산권」 – IP의 정의  https://ko.wikipedia.org/wiki/지식_재산권
+      wikipedia/CC BY-SA · fact · 확인일 2026-10-15 · 위키백과 섹션: 도입부 / 명칭
+    MK-017  위키백과 「Intellectual property」 – IP와 IPR의 구분, 제도의 목적  https://en.wikipedia.org/wiki/Intellectual_property
+      wikipedia/CC BY-SA · fact · 확인일 2026-10-15 · 위키백과 섹션: 도입부
+```
+
+답변에 ID가 하나도 없으면 목록 끝에 "(답변에 ID 표시가 없습니다. 위 자료와 답변을 비교해 확인하세요)"를 덧붙입니다. 프롬프트에서 ID 쓰는 법을 보여 주려고 넣은 예시 번호 `MK-000`(실제로는 없는 자료)을 LLM이 그대로 따라 적으면 "⚠ 견본 ID(MK-000)를 그대로 베꼈습니다. 근거 표시를 믿지 마세요"라는 경고 줄을 덧붙입니다.
 
 ## 3. 사용 기술
 
