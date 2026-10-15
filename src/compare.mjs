@@ -26,7 +26,8 @@ function citeRate(answer) {
 const sec = (ms) => (ms / 1000).toFixed(1);
 const quote = (text) => text.trim().split("\n").map((l) => `> ${l}`).join("\n");
 
-const md = [`# STEP 8 비교 결과 (${new Date().toISOString().slice(0, 16).replace("T", " ")} UTC, ${LLM_MODEL}, 기준 ${WEAK_THRESHOLD})`, ""];
+const md = [`# STEP 8 비교 결과 (${new Date().toISOString().slice(0, 16).replace("T", " ")} UTC, ${LLM_MODEL}, 기준 ${WEAK_THRESHOLD})`, "",
+  "> ⚠ 이 파일의 'RAG 없이' 답변은 qwen3.5:2b가 자료 없이 만든 **틀린 답을 그대로 기록한 실험 결과**입니다. 실제 기업·인물·작품에 대한 사실이 아닙니다. 사실 확인은 'RAG' 답변 아래의 출처 링크를 보세요.", ""];
 const summary = [];
 for (const q of qs) {
   console.log(`\n=== ${q.id}. ${q.question}`);

@@ -182,6 +182,8 @@ node src/compare.mjs --only B   # 일부만 다시 돌리기 → eval/compare-re
 
 ## 8. 2단계 비교 실험 기록 (STEP 8, 2026-10-15)
 
+> ⚠ "RAG 없이" 열은 LLM이 자료 없이 지어낸 **틀린 답의 요약**입니다. 실제 기업·작품에 대한 사실이 아닙니다.
+
 `node src/compare.mjs`로 같은 질문을 RAG 없이(`--no-rag`)와 RAG로 물었다(qwen3.5:2b, 청크 133개, 기준 0.58). 답변 원문: `eval/compare-results.md`. "지어낸·틀린 문장"은 답변 문장을 청크 원문(RAG)이나 출처 기사·위키백과(RAG 없이)와 대조해 직접 센 수다.
 
 | # | 질문 | RAG 없이 (핵심) | RAG (핵심) | 근거 ID 표시 | 지어낸·틀린 문장 (없이 → RAG) | 판단 |
@@ -236,6 +238,18 @@ node src/compare.mjs --only B   # 일부만 다시 돌리기 → eval/compare-re
 | `data/chunks-review.md` | 청크 검토표, 변경 기록, 제외한 자료 |
 | `src/` | embedder · validate-chunks · build-index · search · eval-search · scope-guard · test-scope · messages · prompt · ollama · ask · compare |
 | `eval/` | 평가 질문 24개와 검색 결과, 비교 질문 10개와 결과 |
+
+## 자료 출처와 라이선스
+
+| 자료 | 청크에 넣은 방식 | 라이선스·권리 |
+| --- | --- | --- |
+| 한국어·영어 위키백과 (TH·ST·WK·MK·CS 일부) | 문서를 한국어로 요약·번역, 청크마다 문서 url 표기 | [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/). 이 청크들(과 그 벡터)은 같은 조건으로 재사용할 수 있습니다 |
+| 『The Poetics of Aristotle』 S. H. Butcher 영역 (TH-014~016) | 프로젝트 구텐베르크 원문을 한국어로 번역·요약 | 퍼블릭 도메인 |
+| KCI 논문 초록 4편 (CS-011~017) | 원문 문장 없이 초록에 적힌 사실만 정리, KCI url 표기 | 원문 저작권은 저자·학회에 있음. 원문은 링크로 확인 |
+| 언론 기사 9건 (CS-021~026, CS-031~038) | 원문 문장 없이 기사에 적힌 사실만 정리, 언론사·발행일·url 표기 | 원문 저작권은 각 언론사에 있음. 원문은 링크로 확인 |
+
+- 책·논문·기사 원문, 캐릭터 이미지, 참고 자료 원문은 저장소에 넣지 않았습니다.
+- 캐릭터·작품·회사 이름은 해당 권리자의 상표이며, 이 프로젝트는 학습용으로 사실을 인용할 뿐 권리자와 관계가 없습니다.
 
 ## 주의
 
